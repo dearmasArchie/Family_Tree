@@ -1,0 +1,23 @@
+* , *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
