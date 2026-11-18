@@ -1,0 +1,164 @@
+.timeline {
+  padding: 72px 0 56px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.timeline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(1100px, calc(100% - 48px));
+  margin: 0 auto 40px;
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.timeline-entry:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.timeline-viewport {
+  overflow: hidden;
+}
+
+.timeline-track {
+  display: flex;
+  width: max-content;
+  /* Scroll parallax: drifts up to 60px left as the strip passes up the screen (never right, so no gap shows). */
+  translate: calc((var(--p, 0) - 1) * 30px) 0;
+  animation: timeline-glide 110s linear infinite;
+}
+
+/* Pause on hover or keyboard focus */
+.timeline-viewport:hover .timeline-track,
+.timeline-viewport:focus-within .timeline-track {
+  animation-play-state: paused;
+}
+
+@keyframes timeline-glide {
+  to { transform: translateX(-50%); }
+}
+
+.timeline-row {
+  display: flex;
+  list-style: none;
+  /* the line runs through the dots */
+  background: linear-gradient(var(--line-strong), var(--line-strong)) 0 58px / 100% 1px no-repeat;
+}
+
+.timeline-item {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.timeline-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  padding: 0 24px 0 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.timeline-year {
+  height: 44px;
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 44px;
+  color: var(--ink);
+}
+
+.timeline-dot {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  margin: 8px 0 18px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--surface);
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+/* Next birthday: a ring ripples out from the dot */
+.timeline-entry.is-next .timeline-dot {
+  background: var(--accent);
+}
+
+.timeline-entry.is-next .timeline-dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: dot-ripple 2.2s var(--ease-out) infinite;
+}
+
+@keyframes dot-ripple {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+.timeline-name {
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.timeline-date {
+  min-height: 18px;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ochre);
+}
+
+.timeline-entry:hover .timeline-dot {
+  background: var(--accent);
+  transform: scale(1.15);
+}
+
+.timeline-entry:hover .timeline-name {
+  color: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .timeline {
+    padding: 56px 0 40px;
+  }
+
+  .timeline-head {
+    width: calc(100% - 32px);
+    margin-bottom: 28px;
+  }
+
+  .timeline-item {
+    width: 180px;
+  }
+}
+
+/* The glide runs even with reduced motion on (owner's choice); hover and keyboard focus still pause it. */

@@ -1,0 +1,219 @@
+.ring-hero {
+  --mx: 0;
+  --my: 0;
+  background: var(--paper);
+  padding: 160px 0 24px; /* clears the fixed nav */
+  overflow: hidden;
+}
+
+.ring-hero-canvas {
+  position: relative;
+  width: min(1440px, 100%);
+  aspect-ratio: 1440 / 920;
+  margin: 0 auto;
+  container-type: inline-size;
+}
+
+/* Faint words curving around the ring */
+.ring-hero-words {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  animation: ring-fade 1.2s ease 1.65s forwards;
+}
+
+.ring-hero-words text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  fill: #6b6b69;
+}
+
+@keyframes ring-fade {
+  to { opacity: 0.15; }
+}
+
+/* Photos: outer = position + parallax, middle = drift, img = pop-in */
+.ring-photo {
+  position: absolute;
+  z-index: 2;
+  transform:
+    translate(-50%, -50%)
+    translate(calc(var(--mx) * var(--depth) * -1px), calc(var(--my) * var(--depth) * -1px));
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.ring-photo.is-back {
+  z-index: 1;
+}
+
+/* Scroll parallax: bigger photos move up faster (0.025-0.075x scroll), so the ring feels layered. */
+.ring-photo-scroll {
+  translate: 0 calc(var(--sy, 0) * var(--scroll-speed, 0) * -1px);
+}
+
+.ring-photo-drift {
+  animation: ring-drift var(--drift-time) ease-in-out calc(var(--pop-delay) + 0.5s) infinite alternate;
+}
+
+@keyframes ring-drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(var(--drift-x), calc(var(--drift-y) * -1)); }
+}
+
+.ring-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  filter: grayscale(1);
+  opacity: 0;
+  transform: scale(0.9);
+  animation: ring-pop 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) var(--pop-delay) forwards;
+}
+
+@keyframes ring-pop {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Centre copy */
+.ring-hero-copy {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: 90%;
+  text-align: center;
+  opacity: 0;
+  animation: ring-copy-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards; /* after the nav drops in */
+}
+
+@keyframes ring-copy-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 18px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Scroll parallax: the text trails the page a little and fades as you scroll past. */
+.ring-hero-copy-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  translate: 0 calc(var(--sy, 0) * 0.12px);
+  opacity: max(0, calc(1 - var(--sy, 0) / 900));
+}
+
+.ring-hero-copy h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: min(80px, 5.6cqw);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 28px;
+}
+
+.ring-hero-copy p {
+  font-family: var(--font-mono);
+  font-size: 15px; /* Martian Mono runs wide: 15px keeps the body to 3 lines */
+  line-height: 1.6;
+  color: var(--body);
+  max-width: min(680px, 48cqw);
+  margin: 0 0 32px;
+}
+
+.ring-hero-copy button {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.ring-hero-copy button:hover {
+  background: var(--accent-hover);
+}
+
+.ring-hero-copy button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Mobile: 2 photos above, 2 below, rest hidden */
+@media (max-width: 767px) {
+  .ring-hero {
+    padding: 140px 16px 48px;
+  }
+
+  .ring-hero-canvas {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: end;
+  }
+
+  .ring-hero-words,
+  .ring-photo:not([class*='is-mobile-']) {
+    display: none;
+  }
+
+  .ring-photo {
+    position: static;
+    width: auto !important;
+    transform: none;
+  }
+
+  .ring-photo.is-mobile-top { order: 0; }
+  .ring-photo.is-mobile-bottom { order: 2; align-self: start; }
+
+  .ring-hero-copy {
+    position: static;
+    order: 1;
+    grid-column: 1 / -1;
+    width: auto;
+    max-width: none;
+    margin: 24px 0;
+    transform: none;
+    animation-name: ring-copy-in-mobile;
+  }
+
+  .ring-hero-copy h2 {
+    font-size: clamp(32px, 9.4vw, 44px);
+  }
+
+  .ring-hero-copy p {
+    font-size: 15px;
+    max-width: none;
+  }
+}
+
+@keyframes ring-copy-in-mobile {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

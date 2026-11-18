@@ -1,0 +1,296 @@
+.birthdays {
+  position: relative;
+  width: min(1100px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 120px 0 24px; /* room for the bunting above the heading */
+}
+
+/* --- Bunting: faint flags strung across the top; brighter and swaying on someone's birthday --- */
+.bunting {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0.25;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+.bunting-string {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+}
+
+.bunting-flag {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+}
+
+.birthdays.is-celebrating .bunting {
+  opacity: 0.6;
+}
+
+.birthdays.is-celebrating .bunting-flag {
+  animation: bunting-sway 3.2s ease-in-out var(--sway-delay, 0s) infinite alternate;
+}
+
+@keyframes bunting-sway {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(6deg); }
+}
+
+.birthdays-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+/* --- Next-up ribbon --- */
+.birthday-ribbon {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 12px 24px;
+  color: var(--surface);
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.birthday-ribbon-tag,
+.birthday-ribbon-then {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.birthday-ribbon-tag {
+  color: #e3c27a; /* light ochre: 5.6:1 on the green */
+}
+
+.birthday-ribbon-text {
+  font-family: var(--font-display); /* the display font has no italic, so this stays upright */
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.birthday-ribbon-then {
+  margin-left: auto;
+  opacity: 0.8;
+}
+
+.birthday-ribbon.is-remembering {
+  background: var(--ink);
+}
+
+.birthday-ribbon.is-today {
+  animation: birthday-glow 2.4s ease-in-out 3;
+}
+
+@keyframes birthday-glow {
+  50% { background: #2a6a50; }
+}
+
+/* --- Calendar pages --- */
+.birthday-pages {
+  position: relative; /* confetti falls from here */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 220px));
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  list-style: none;
+}
+
+.birthday-page {
+  /*
+   * Each page is painted as ONE surface: the band colour for the top 32px, white below.
+   * No border and no clipped child sit on top of another edge, so the tilt can't leave a seam.
+   */
+  --band: var(--accent);
+  --band-height: 32px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  /* the 1px blend lets the tilted green/white edge look smooth instead of stair-stepped */
+  background: linear-gradient(
+    var(--band) calc(var(--band-height) - 0.5px),
+    var(--surface) calc(var(--band-height) + 0.5px)
+  );
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.birthday-page:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.birthday-page-month {
+  height: var(--band-height);
+  line-height: var(--band-height);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--surface);
+}
+
+.birthday-page-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.birthday-page-day {
+  padding-top: 8px;
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.birthday-page-name {
+  padding: 0 12px 4px;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.birthday-page-when,
+.birthday-page-age {
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ochre);
+}
+
+.birthday-page-age {
+  padding: 2px 12px 18px;
+  color: var(--muted);
+}
+
+.birthday-page.is-remembering {
+  --band: var(--ink);
+}
+
+.birthday-page.is-remembering .birthday-page-when {
+  color: var(--muted);
+}
+
+/* Today: the whole page is green and the white body sits 4px inside it, so the frame is the page itself. */
+.birthday-page.is-today {
+  background: var(--band);
+  padding: 0 4px 4px;
+  margin: 0 -4px -4px;
+}
+
+.birthday-page.is-today .birthday-page-body {
+  background: var(--surface);
+  border-radius: 2px;
+}
+
+/* --- Tear-off flip: the new "next up" page swings down from its top edge --- */
+.birthday-page.is-flipping {
+  transform-origin: top center;
+  animation: page-flip var(--dur-slow) var(--ease-out) 0.3s backwards; /* backwards: hover still works after */
+}
+
+@keyframes page-flip {
+  from {
+    opacity: 0;
+    transform: perspective(700px) rotateX(-95deg) rotate(var(--tilt, 0deg));
+  }
+  to {
+    opacity: 1;
+    transform: perspective(700px) rotateX(0deg) rotate(var(--tilt, 0deg));
+  }
+}
+
+/* --- Confetti (only on someone's birthday, once a day) --- */
+.confetti-piece {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 12px;
+  border-radius: 1px;
+  pointer-events: none;
+  opacity: 0;
+  animation: confetti-fall 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift), var(--fall)) rotate(var(--spin));
+  }
+}
+
+@media (max-width: 700px) {
+  .birthdays {
+    width: calc(100% - 32px);
+    padding-top: 88px;
+    overflow-x: clip; /* crop the wider bunting below without making a scroll area */
+  }
+
+  /* draw the bunting twice as wide so the flags stay a readable size; the middle part shows */
+  .bunting {
+    width: 200%;
+    left: -50%;
+  }
+
+  .birthday-ribbon {
+    border-radius: 20px;
+    padding: 14px 20px;
+  }
+
+  .birthday-ribbon-text {
+    font-size: 19px;
+  }
+
+  .birthday-ribbon-then {
+    margin-left: 0;
+  }
+
+  .birthday-pages {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .birthday-page-day {
+    font-size: 44px;
+  }
+
+  .birthday-page-month,
+  .birthday-page-when,
+  .birthday-page-age {
+    font-size: 10px;
+    letter-spacing: 0; /* Martian Mono runs wide; keeps "In 3 months" on one line */
+  }
+
+  .birthday-page-when,
+  .birthday-page-age {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .birthday-page-name {
+    font-size: 14px;
+  }
+}

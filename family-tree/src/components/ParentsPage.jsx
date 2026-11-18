@@ -1,12 +1,14 @@
+import { Link } from 'react-router-dom';
+import { formatDate, lifeDates } from '../data/dates';
 import PersonCard from './PersonCard';
 
-export default function ParentsPage({ people, parentGeneration, childGeneration, onBack, onSelect }) {
+export default function ParentsPage({ people, parentGeneration, childGeneration, onBack }) {
   return (
     <div className="parents-page">
       <div className="page-header-row" onClick={onBack} role="button" tabIndex="0" onKeyDown={(e) => e.key === 'Enter' && onBack()}>
         <h1>{parentGeneration.label}</h1>
         <p className="page-description">
-          This page shows the parents' generation using the information from the data source, and also lists their children.
+          Ernesto and Jovita's eight children, from eldest to youngest. Open any of them for their full story and family.
         </p>
       </div>
 
@@ -27,20 +29,24 @@ export default function ParentsPage({ people, parentGeneration, childGeneration,
                   <h2>{person.name}</h2>
                   <p className="detail-role">{person.role}</p>
                   <p className="detail-dates">
-                    {person.died ? `${person.born} – ${person.died}` : `b. ${person.born}`}
+                    {lifeDates(person)}
                   </p>
                 </div>
               </div>
 
               <div className="parent-detail-grid">
-                <div>
-                  <strong>Birthplace</strong>
-                  <span>{person.birthplace}</span>
-                </div>
-                <div>
-                  <strong>Occupation</strong>
-                  <span>{person.occupation}</span>
-                </div>
+                {person.birthplace && (
+                  <div>
+                    <strong>Birthplace</strong>
+                    <span>{person.birthplace}</span>
+                  </div>
+                )}
+                {person.occupation && (
+                  <div>
+                    <strong>Occupation</strong>
+                    <span>{person.occupation}</span>
+                  </div>
+                )}
                 {person.spouse && (
                   <div>
                     <strong>Spouse</strong>
@@ -50,28 +56,30 @@ export default function ParentsPage({ people, parentGeneration, childGeneration,
                 {person.died && (
                   <div>
                     <strong>Passed</strong>
-                    <span>{person.died}</span>
+                    <span>{formatDate(person.died)}</span>
                   </div>
                 )}
               </div>
 
               {person.bio ? <p className="parent-detail-bio">{person.bio}</p> : null}
-              <button type="button" className="detail-button" onClick={() => onSelect(id)}>
+              <Link to={`/person/${id}`} className="detail-button">
                 View details
-              </button>
+              </Link>
             </article>
           );
         })}
       </section>
 
-      <section className="children-section">
-        <h2>Children of this generation</h2>
-        <div className="cards-row children-row">
-          {childGeneration.members.map((id) => (
-            <PersonCard key={id} person={people[id]} onClick={() => onSelect(id)} />
-          ))}
-        </div>
-      </section>
+      {childGeneration ? (
+        <section className="children-section">
+          <h2>Children of this generation</h2>
+          <div className="cards-row children-row">
+            {childGeneration.members.map((id) => (
+              <PersonCard key={id} id={id} person={people[id]} />
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

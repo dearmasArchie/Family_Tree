@@ -10,10 +10,10 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Jost', sans-serif;
-  font-weight: 300;
+  font-family: var(--font-body);
+  font-weight: 400;
   min-height: 100vh;
-  background: var(--cream);
+  background: var(--paper);
   color: var(--ink);
   overflow-x: hidden;
 }
@@ -21,3 +21,49 @@ body {
 #root {
   min-height: 100vh;
 }
+
+/* --- Scroll reveal: sections fade up the first time they come on screen (see useReveal.js) --- */
+/* sections are marked data-reveal (React writes it as data-reveal="true") */
+[data-reveal='true'] {
+  opacity: 0;
+  translate: 0 28px;
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    translate var(--dur-slow) var(--ease-out);
+}
+
+[data-reveal='true'].is-visible {
+  opacity: 1;
+  translate: none;
+}
+
+/* data-reveal="cards" / "lines" (tree generations and the tree itself) don't move; becoming
+   visible just starts their cards' staggered entrance or their line drawing. */
+
+/* --- Page changes (React Router view transitions; Chrome and Edge, others just switch) --- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-base);
+  animation-timing-function: var(--ease-out);
+}
+
+/* the clicked photo circle grows into the profile photo */
+::view-transition-group(person-photo) {
+  animation-duration: var(--dur-slow);
+  animation-timing-function: var(--ease-out);
+}
+
+/* --- Press feedback: things you click shrink slightly while pressed --- */
+button:active,
+.card:active,
+.detail-button:active,
+.mini-node:active,
+.family-link:active,
+.timeline-entry:active,
+.profile-pager-link:active {
+  scale: 0.97;
+}
+
+/* Motion: all animations run for everyone, including with the system's "reduce motion" setting
+   (the site owner's choice). To respect that setting again, wrap the decorative animations in
+   @media (prefers-reduced-motion: no-preference). */

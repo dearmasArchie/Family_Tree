@@ -1,0 +1,115 @@
+.site-footer {
+  --footer-text: #f7f7f5;
+  --footer-soft: rgba(247, 247, 245, 0.72); /* 6:1 on the green */
+  --footer-link: #e3c27a; /* light ochre, 5.6:1 on the green */
+  margin-top: 40px;
+  color: var(--footer-text);
+  background: var(--accent);
+}
+
+.site-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  width: min(1100px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 88px 0 64px;
+}
+
+.site-footer-name {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 104px);
+  line-height: 1;
+}
+
+.site-footer-line {
+  max-width: 360px;
+  margin-top: 20px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--footer-soft);
+}
+
+.site-footer-links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  padding-top: 12px;
+}
+
+.site-footer-links a {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--footer-text);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.site-footer-links a:hover {
+  color: var(--footer-link);
+}
+
+.site-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: min(1100px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 20px 0 28px;
+  border-top: 1px solid rgba(247, 247, 245, 0.2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--footer-soft);
+}
+
+.site-footer-top {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--footer-link);
+  background: none;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.site-footer-top:hover {
+  color: var(--footer-text);
+}
+
+.site-footer a:focus-visible,
+.site-footer-top:focus-visible {
+  outline: 2px solid var(--footer-link);
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .site-footer-inner {
+    flex-direction: column;
+    gap: 40px;
+    width: calc(100% - 32px);
+    padding: 64px 0 40px;
+  }
+
+  .site-footer-links ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding-top: 0;
+  }
+
+  .site-footer-links a {
+    font-size: 22px;
+  }
+
+  .site-footer-bottom {
+    width: calc(100% - 32px);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+}

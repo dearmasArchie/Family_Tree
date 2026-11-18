@@ -1,0 +1,96 @@
+.site-nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  z-index: 20;
+  transform: translateX(-50%);
+  animation: site-nav-drop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes site-nav-drop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -32px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.site-nav-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  --sub-height: 20px; /* subtitle row: 6px gap + 14px line */
+  padding: 14px 40px;
+  color: var(--ink);
+  background: rgba(247, 247, 245, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.site-nav-brand:hover {
+  border-color: var(--line-strong);
+}
+
+.site-nav-brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.site-nav-name {
+  font-family: var(--font-display);
+  font-size: 68px;
+  line-height: 1;
+  white-space: nowrap; /* left: 50% halves the space a fixed box can grow into, so stop it wrapping */
+  transition: transform 0.45s ease-in-out;
+}
+
+/* The subtitle keeps its space so the pill never changes size; it only fades. */
+.site-nav-sub-wrap {
+  height: var(--sub-height);
+  padding-top: 6px;
+  transition: opacity 0.45s ease-in-out, transform 0.45s ease-in-out;
+}
+
+.site-nav-sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+/* Scrolled: fade the subtitle out and slide the name down to the pill's vertical centre. */
+.site-nav.is-scrolled .site-nav-sub-wrap {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.site-nav.is-scrolled .site-nav-name {
+  transform: translateY(calc(var(--sub-height) / 2));
+}
+
+@media (max-width: 480px) {
+  .site-nav-brand {
+    padding: 12px 28px;
+  }
+
+  .site-nav-name {
+    font-size: 56px;
+  }
+
+  .site-nav-sub {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* Reduced motion: skip the drop-in; the subtitle fade and 10px name shift are small enough to keep. */

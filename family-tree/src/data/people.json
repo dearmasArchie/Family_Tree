@@ -1,22 +1,22 @@
 {
-  "grandfather": {
+  "ernesto": {
     "name": "Ernesto De Armas",
     "initials": "ED",
     "born": "12 March 1920",
     "died": "4 June 1998",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Farmer & Carpenter",
     "spouse": "Jovita De Armas",
     "role": "Patriarch",
     "bio": "A man of few words and great hands. Ernesto built the family home in 1952 and spent forty years tending the land he loved. His laughter filled every room.",
     "photo": ""
   },
-  "grandmother": {
+  "jovita": {
     "name": "Jovita De Armas",
     "initials": "JD",
     "born": "3 September 1924",
     "died": "18 January 2005",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Homemaker & Seamstress",
     "spouse": "Ernesto De Armas",
     "role": "Matriarch",
@@ -24,39 +24,51 @@
     "photo": ""
   },
   "lourdes": {
-    "name": "Lourdes Torreon",
-    "initials": "LT",
+    "name": "Lourdes De Armas",
+    "initials": "LD",
     "born": "November 19 1961",
     "died": "",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Engineer",
     "spouse": "",
+    "parents": [
+      "ernesto",
+      "jovita"
+    ],
     "role": "Parent",
-    "bio": "Lourdes continues the family tradition with quiet strength and steady leadership.",
+    "bio": "",
     "photo": ""
   },
-  "dong": {
+  "fernando": {
     "name": "Fernando De Armas",
-    "initials": "LD",
+    "initials": "FD",
     "born": "April 23 1963",
     "died": "",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Business Owner",
     "spouse": "",
+    "parents": [
+      "ernesto",
+      "jovita"
+    ],
     "role": "Parent",
-    "bio": "Dong works behind the scenes to keep the family connected across generations.",
+    "bio": "",
     "photo": ""
   },
-  "marieta": {
-    "name": "Marietta Calayag",
-    "initials": "MC",
+  "marietta": {
+    "name": "Marietta De Armas",
+    "initials": "MD",
     "born": "February 23 1961",
     "died": "",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Teacher",
     "spouse": "",
+    "parents": [
+      "ernesto",
+      "jovita"
+    ],
     "role": "Parent",
-    "bio": "Marietta is the family storyteller, keeping memories alive with every shared meal.",
+    "bio": "",
     "photo": ""
   },
   "ronaldo": {
@@ -64,11 +76,15 @@
     "initials": "RD",
     "born": "September 10 1966",
     "died": "",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Engineer",
     "spouse": "",
+    "parents": [
+      "ernesto",
+      "jovita"
+    ],
     "role": "Parent",
-    "bio": "Ronaldo builds bridges between relatives with a generous heart and calm presence.",
+    "bio": "",
     "photo": ""
   },
   "arnold": {
@@ -76,35 +92,47 @@
     "initials": "AD",
     "born": "July 23 1968",
     "died": "",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Photographer",
     "spouse": "",
+    "parents": [
+      "ernesto",
+      "jovita"
+    ],
     "role": "Parent",
-    "bio": "Arnold captures family life in vivid detail, preserving moments for years to come.",
+    "bio": "",
     "photo": ""
   },
-    "rebecca": {
-    "name": "Rebecca Artizuela",
-    "initials": "RE",
+  "rebecca": {
+    "name": "Rebecca De Armas",
+    "initials": "RD",
     "born": "September 16 1970",
     "died": "",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Nurse",
     "spouse": "",
+    "parents": [
+      "ernesto",
+      "jovita"
+    ],
     "role": "Parent",
-    "bio": "Rebecca is the family caretaker, always offering kindness and comfort where it is needed most.",
+    "bio": "",
     "photo": ""
   },
-  "ernestoParent": {
+  "ernestoJr": {
     "name": "Ernesto De Armas Jr.",
     "initials": "ED",
     "born": "June 8 1975",
     "died": "",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Teacher",
     "spouse": "",
+    "parents": [
+      "ernesto",
+      "jovita"
+    ],
     "role": "Parent",
-    "bio": "Ernesto carries the family name with pride and keeps the family history close.",
+    "bio": "",
     "photo": ""
   },
   "jeffrey": {
@@ -112,84 +140,75 @@
     "initials": "JR",
     "born": "May 2 1980",
     "died": "",
-    "birthplace": "Havana, Cuba",
+    "birthplace": "Bulacan, Philippines",
     "occupation": "Designer",
     "spouse": "",
+    "parents": [
+      "ernesto",
+      "jovita"
+    ],
     "role": "Parent",
-    "bio": "Jeffrey uses creativity to bring family traditions into a fresh, modern life.",
+    "bio": "",
     "photo": ""
   },
-
-  "child1": {
-    "name": "Ana De Armas",
-    "initials": "AA",
-    "born": "1978",
+  "arlouigie": {
+    "name": "Arlouigie De Armas",
+    "initials": "AD",
+    "born": "October 12 1990",
     "died": "",
-    "birthplace": "Madrid, Spain",
-    "occupation": "Architect",
-    "spouse": "Tomás Vega",
-    "role": "Granddaughter",
-    "bio": "Ana designs spaces where people feel at home. She says she learned that from watching her grandfather build.",
-    "photo": ""
-  },
-  "child2": {
-    "name": "Pablo De Armas",
-    "initials": "PA",
-    "born": "1980",
-    "died": "",
-    "birthplace": "Madrid, Spain",
-    "occupation": "Chef",
+    "birthplace": "",
+    "occupation": "",
     "spouse": "",
-    "role": "Grandson",
-    "bio": "Pablo turned his grandmother's recipes into a restaurant. Every table is a reunion.",
+    "parents": [
+      "arnold"
+    ],
+    "role": "",
+    "bio": "",
     "photo": ""
   },
-  "child3": {
-    "name": "Sofía De Armas",
-    "initials": "SA",
-    "born": "1983",
+  "arnie": {
+    "name": "Arnie De Armas",
+    "initials": "AD",
+    "born": "January 25 1994",
     "died": "",
-    "birthplace": "Miami, USA",
-    "occupation": "Doctor",
-    "spouse": "Luis Morales",
-    "role": "Granddaughter",
-    "bio": "Sofía believed in medicine before she believed in anything else. She is the family's quiet pillar.",
-    "photo": ""
-  },
-  "child4": {
-    "name": "Miguel De Armas",
-    "initials": "MA",
-    "born": "1986",
-    "died": "",
-    "birthplace": "Miami, USA",
-    "occupation": "Photographer",
+    "birthplace": "",
+    "occupation": "",
     "spouse": "",
-    "role": "Grandson",
-    "bio": "Miguel documents what others overlook. He says a photograph is just a memory that doesn't fade.",
+    "parents": [
+      "arnold"
+    ],
+    "role": "",
+    "bio": "",
     "photo": ""
   },
-  "grandchild1": {
-    "name": "Isabel De Armas",
-    "initials": "IA",
-    "born": "2008",
+  "arnesto": {
+    "name": "Arnesto De Armas",
+    "initials": "AD",
+    "born": "June 3 1996",
     "died": "",
-    "birthplace": "Barcelona, Spain",
-    "occupation": "Student",
+    "birthplace": "",
+    "occupation": "",
     "spouse": "",
-    "role": "Great-granddaughter",
-    "bio": "The eldest of the new generation. Isabel already reads faster than anyone in the family.",
+    "parents": [
+      "arnold"
+    ],
+    "role": "",
+    "bio": "",
     "photo": ""
   },
-  "grandchild2": {
-    "name": "Diego De Armas",
-    "initials": "DA",
-    "born": "2012",
+  "archie": {
+    "name": "Archie De Armas",
+    "initials": "AD",
+    "born": "February 5 2005",
     "died": "",
-    "birthplace": "Miami, USA",
-    "occupation": "Student",
+    "birthplace": "",
+    "occupation": "",
     "spouse": "",
-    "role": "Great-grandson",
-    "bio": "Diego wants to be an astronaut. The family has no reason to doubt him.",
+    "parents": [
+      "arnold"
+    ],
+    "role": "",
+    "bio": "",
     "photo": ""
   }
 }

@@ -1,62 +1,33 @@
 :root {
-  --cream: #f9f5ef;
-  --ink: #1c1914;
-  --muted: #8a7f72;
-  --gold: #b08d57;
-  --gold-light: #d4b483;
-  --line: #d9d0c4;
-  --card-bg: #ffffff;
-  --shadow: 0 4px 32px rgba(28, 25, 20, 0.08);
-}
+  /* Colour: archive monochrome + deep green, ochre for small details */
+  --paper: #ededeb;
+  --surface: #f7f7f5;
+  --line: #d6d6d2;
+  --line-strong: #a9a9a4;
+  --muted: #5e5e5b;
+  --body: #3d3d3b;
+  --ink: #161616;
+  --accent: #1f4d3a;
+  --accent-hover: #173b2c;
+  --ochre: #8c5b15; /* darkened from #9a6418 so small text passes WCAG AA */
+  --shadow: 0 4px 32px rgba(22, 22, 22, 0.08);
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: var(--cream);
-}
+  /* Type */
+  /* Headings: Playfair Display, italic only. Only the italic is loaded (index.html), so every
+     heading picks it up without each rule needing font-style: italic. Body: free stand-in for Groteska. */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, monospace;
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: var(--cream);
-}
+  /* Motion: every transition and entrance on the site uses these */
+  --dur-fast: 0.2s; /* hovers, presses, colour changes */
+  --dur-base: 0.4s; /* entrances, lifts, small moves */
+  --dur-slow: 0.7s; /* big moments: photo morphs, page flips */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-pop: cubic-bezier(0.34, 1.4, 0.64, 1);
 
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(940px, calc(100% - 32px));
-  padding: 12px 32px;
-  background: rgba(249, 245, 239, 0.92);
-  border: 1px solid rgba(176, 141, 87, 0.85);
-  border-radius: 62px;
-  box-shadow: 0 24px 80px rgba(28, 25, 20, 0.15);
-  z-index: 20;
-}
-
-.header-clickable {
-  cursor: pointer;
-}
-
-.header-clickable:hover,
-.header-clickable:focus-visible {
-  border-color: var(--gold-light);
-}
-
-.content-line {
-  display: block;
-  width: 2px;
-  height: 64px;
-  margin: 0 auto 0;
-  border-radius: 1px;
-  margin-top: 5%;
-  background: linear-gradient(to bottom, var(--gold) 0%, rgba(176, 141, 87, 0.35) 50%, transparent 100%);
+  /* Space the fixed header takes up at the top of a page */
+  --header-clearance: 168px;
 }
 
 .home-hero {
@@ -86,7 +57,7 @@ header {
 }
 
 .hero-copy h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: clamp(44px, 6vw, 72px);
   line-height: 1.02;
   margin: 0 0 24px;
@@ -96,7 +67,7 @@ header {
 .hero-description {
   font-size: 18px;
   line-height: 1.8;
-  color: #4a4540;
+  color: var(--body);
   margin: 0 0 32px;
 }
 
@@ -110,7 +81,7 @@ header {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
 
 .hero-cta:hover,
@@ -122,7 +93,7 @@ header {
 
 .hero-cta:hover,
 .hero-cta:focus-visible {
-  background: var(--gold-light);
+  background: var(--line-strong);
   outline: none;
 }
 
@@ -182,28 +153,16 @@ header {
 }
 
 h1 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: clamp(48px, 8vw, 88px);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
 
-h1 em {
-  font-style: italic;
-  color: var(--gold);
-}
-
-.header-sub {
-  margin-top: 16px;
-  font-size: 16px;
-  color: var(--muted);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
 .tree-wrapper {
+  position: relative; /* anchor for the family lines */
   max-width: 1100px;
   margin: 0 auto;
   padding: 120px 24px 120px;
@@ -220,6 +179,11 @@ h1 em {
   margin-bottom: 64px;
 }
 
+/* Scroll parallax: the tree sits up to 48px lower while below centre and settles as it reaches it. */
+.parallax-rise {
+  translate: 0 calc(var(--p, 0) * 48px);
+}
+
 .gen-label {
   display: flex;
   align-items: center;
@@ -231,7 +195,8 @@ h1 em {
   font-size: 13px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--muted);
+  font-family: var(--font-mono);
+  color: var(--ochre);
   white-space: nowrap;
   font-weight: 400;
 }
@@ -261,7 +226,7 @@ h1 em {
   transform: translateX(-50%);
   width: 1px;
   height: 100%;
-  background: linear-gradient(to bottom, var(--gold-light), var(--line));
+  background: linear-gradient(to bottom, var(--line-strong), var(--line));
 }
 
 .cards-row {
@@ -271,43 +236,142 @@ h1 em {
   flex-wrap: wrap;
 }
 
+/* Children of one couple: an even number of columns keeps a centre gap for the family line to pass through. */
+.cards-row.is-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 180px);
+  justify-content: center;
+  gap: 48px 20px;
+}
+
+/* Family lines: drawn behind the cards, from each couple down to their children */
+.family-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Lines draw themselves downward when the tree scrolls into view (pathLength="1" on each path) */
+.family-lines path:not(.family-lines-route) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+[data-reveal].is-visible .family-lines path:not(.family-lines-route) {
+  animation: line-draw var(--dur-slow) var(--ease-out) calc(0.25s + var(--i, 0) * 45ms) forwards;
+}
+
+@keyframes line-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+.family-lines path {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+}
+
+/* Hover tracing: the hovered person's route turns green, other lines and unrelated cards fade back */
+.family-lines path {
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.family-lines.is-tracing path:not(.family-lines-route) {
+  opacity: 0.35;
+}
+
+.family-lines .family-lines-route {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.tree-wrapper .card {
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
+}
+
+/* filter, not opacity: the cards' fade-in animation keeps control of opacity */
+.tree-wrapper.is-tracing .card:not(.is-related) {
+  filter: opacity(0.45);
+}
+
+.tree-wrapper.is-tracing .card.is-related {
+  border-color: var(--accent);
+}
+
+.tree-wrapper .generation {
+  position: relative; /* sits above the lines */
+}
+
+/* Labels sit on top of the line with a paper background so the line runs behind them. */
+.tree-wrapper .gen-label > span,
+.tree-wrapper .gen-label > a {
+  position: relative;
+  background: var(--paper);
+  padding: 4px 10px;
+}
+
 .card {
-  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 304px; /* every card the same height, whatever the name or dates */
+  color: inherit;
+  text-decoration: none;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 2px;
   padding: 24px 20px 20px;
   width: 180px;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
   position: relative;
-  animation: fadeUp 0.6s ease both;
+  /* staggered fade-up, one card after another in birth order (--i is the card's position) */
+  animation: fadeUp var(--dur-base) var(--ease-out) calc(var(--i, 0) * 60ms) both;
+}
+
+/* In the home tree, cards wait until their generation scrolls into view */
+.generation[data-reveal] .card {
+  animation-play-state: paused;
+}
+
+.generation[data-reveal].is-visible .card {
+  animation-play-state: running;
 }
 
 .card:hover,
 .card:focus-visible {
   transform: translateY(-4px);
   box-shadow: var(--shadow);
-  border-color: var(--gold-light);
+  border-color: var(--line-strong);
   outline: none;
 }
 
 .card.deceased {
-  background: #faf8f5;
+  background: var(--paper);
 }
 
 .card.deceased .card-name {
   color: var(--muted);
 }
 
+.card.deceased .card-photo {
+  filter: grayscale(1);
+}
+
 .card-photo {
-  width: 72px;
-  height: 72px;
+  flex-shrink: 0;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  margin: 0 auto 14px;
+  margin: 0 auto 16px;
   overflow: hidden;
   border: 2px solid var(--line);
-  background: var(--cream);
+  background: var(--paper);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -323,19 +387,19 @@ h1 em {
 
 .card-photo .initials,
 .modal-photo .initials {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
+  font-family: var(--font-display);
+  font-size: 30px;
   font-weight: 400;
-  color: var(--gold);
+  color: var(--ochre);
   line-height: 1;
 }
 
 .card-photo.has-photo {
-  border-color: var(--gold-light);
+  border-color: var(--line-strong);
 }
 
 .card-name {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 400;
   line-height: 1.2;
@@ -344,43 +408,46 @@ h1 em {
 }
 
 .card-dates {
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: var(--font-mono);
+  color: var(--ochre);
+  letter-spacing: 0.04em;
+}
+
+/* role (and the memorial line) sit at the bottom so they line up across cards */
+.card-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.card-memory {
+  font-family: var(--font-body); /* the display font has no italic */
+  font-style: italic;
   font-size: 13px;
   color: var(--muted);
-  letter-spacing: 0.08em;
 }
 
 .card-role {
   display: inline-block;
-  margin-top: 10px;
+  font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--ochre);
   font-weight: 400;
 }
 
-.card.deceased .card-photo::after {
-  content: '✦';
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 16px;
-  height: 16px;
-  background: var(--cream);
-  border-radius: 50%;
-  font-size: 8px;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 16px;
-}
 
 .modal-backdrop {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(28, 25, 20, 0.55);
+  background: rgba(22, 22, 22, 0.55);
   backdrop-filter: blur(6px);
   z-index: 100;
   align-items: center;
@@ -394,7 +461,7 @@ h1 em {
 }
 
 .modal {
-  background: var(--card-bg);
+  background: var(--surface);
   border: 1px solid var(--line);
   max-width: 440px;
   width: 100%;
@@ -414,7 +481,7 @@ h1 em {
   color: var(--muted);
   line-height: 1;
   padding: 4px;
-  transition: color 0.2s;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .modal-close:hover,
@@ -428,12 +495,12 @@ h1 em {
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid var(--gold-light);
+  border: 2px solid var(--line-strong);
   margin: 0 auto 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--cream);
+  background: var(--paper);
 }
 
 .modal-photo img {
@@ -444,7 +511,7 @@ h1 em {
 }
 
 .modal h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: 28px;
   font-weight: 400;
   text-align: center;
@@ -454,7 +521,8 @@ h1 em {
 .modal-meta {
   text-align: center;
   font-size: 14px;
-  color: var(--muted);
+  font-family: var(--font-mono);
+  color: var(--ochre);
   letter-spacing: 0.1em;
   margin-bottom: 24px;
 }
@@ -475,6 +543,7 @@ h1 em {
 .modal-field-label {
   width: 90px;
   flex-shrink: 0;
+  font-family: var(--font-mono);
   color: var(--muted);
   font-size: 12px;
   letter-spacing: 0.12em;
@@ -491,25 +560,17 @@ h1 em {
 .modal-bio {
   font-size: 18px;
   line-height: 1.75;
-  color: #4a4540;
+  color: var(--body);
   font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-body); /* the display font has no italic; Hanken Grotesk does */
 }
 
-footer {
-  text-align: center;
-  padding: 40px 24px;
-  border-top: 1px solid var(--line);
-  font-size: 14px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-}
-
-footer strong {
-  color: var(--gold);
-  font-weight: 400;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
+/* Sections the footer links jump to: stop below the fixed nav pill */
+#timeline,
+#birthdays,
+#family-tree,
+#album {
+  scroll-margin-top: 150px;
 }
 
 @keyframes fadeUp {
@@ -543,30 +604,12 @@ footer strong {
   }
 }
 
-.cards-row .card:nth-child(1) {
-  animation-delay: 0.05s;
-}
-
-.cards-row .card:nth-child(2) {
-  animation-delay: 0.12s;
-}
-
-.cards-row .card:nth-child(3) {
-  animation-delay: 0.19s;
-}
-
-.cards-row .card:nth-child(4) {
-  animation-delay: 0.26s;
-}
-
-.cards-row .card:nth-child(5) {
-  animation-delay: 0.33s;
-}
+/* card entrance delays now come from --i (see .generation[data-reveal] below) */
 
 .couple-row {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 0;
   position: relative;
 }
@@ -575,25 +618,90 @@ footer strong {
   flex-shrink: 0;
 }
 
-.heart-divider {
+.couple-joiner {
   display: flex;
   align-items: flex-start;
-  padding-top: 44px;
-  color: var(--gold-light);
-  font-size: 13px;
-  user-select: none;
-  width: 32px;
   justify-content: center;
+  width: 40px;
+  padding-top: 64px; /* level with the middle of the photos */
+}
+
+.couple-joiner svg {
+  fill: none;
+  stroke: var(--ochre);
+  stroke-width: 1.6;
+}
+
+@media (max-width: 860px) {
+  .cards-row.is-grid {
+    grid-template-columns: repeat(2, 180px);
+  }
 }
 
 @media (max-width: 600px) {
   .card {
     width: 150px;
-    padding: 18px 14px 16px;
+    min-height: 268px;
+    padding: 18px 12px 16px;
+  }
+
+  .card-photo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .card-name {
+    font-size: 20px;
+  }
+
+  .card-dates {
+    font-size: 11px;
   }
 
   .cards-row {
     gap: 12px;
+  }
+
+  .cards-row.is-grid {
+    grid-template-columns: repeat(2, 150px);
+    gap: 40px 12px;
+  }
+
+  /* keep the couple side by side: 150 + 24 + 150 fits a 375px phone */
+  .tree-wrapper {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .couple-joiner {
+    width: 24px;
+    padding-top: 52px;
+  }
+
+  .couple-joiner svg {
+    width: 22px;
+  }
+
+  .cards-row.couple-row {
+    gap: 0; /* the phone .cards-row gap would otherwise push Jovita onto a second line */
+  }
+
+  /* label and "View parents page" stack and centre instead of running off the edge */
+  .gen-label {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .gen-label span {
+    white-space: normal; /* long labels wrap instead of running off the screen */
+    text-align: center;
+    letter-spacing: 0.18em;
+  }
+
+  .gen-label::before,
+  .gen-label::after {
+    display: none;
   }
 
   .modal {
@@ -605,25 +713,25 @@ footer strong {
 .person-detail-page {
   max-width: 900px;
   margin: 0 auto;
-  padding: 40px 24px 120px;
+  padding: var(--header-clearance) 24px 120px;
 }
 
 .back-button {
   background: none;
   border: none;
-  color: var(--gold);
+  color: var(--accent);
   font-size: 16px;
   cursor: pointer;
   margin-bottom: 32px;
   padding: 8px 0;
-  transition: color 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out);
   font-weight: 500;
   letter-spacing: 0.05em;
 }
 
 .back-button:hover,
 .back-button:focus-visible {
-  color: var(--ink);
+  color: var(--ochre);
   outline: none;
 }
 
@@ -631,7 +739,7 @@ footer strong {
   display: flex;
   gap: 48px;
   align-items: flex-start;
-  background: var(--card-bg);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 4px;
   padding: 48px;
@@ -643,12 +751,12 @@ footer strong {
   height: 200px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid var(--gold-light);
+  border: 2px solid var(--line-strong);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--cream);
+  background: var(--paper);
 }
 
 .detail-photo img {
@@ -659,10 +767,10 @@ footer strong {
 }
 
 .detail-photo .initials {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: 48px;
   font-weight: 400;
-  color: var(--gold);
+  color: var(--ochre);
   line-height: 1;
 }
 
@@ -676,17 +784,19 @@ footer strong {
 }
 
 .detail-role {
+  font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--ochre);
   font-weight: 400;
   margin: 0 0 8px;
 }
 
 .detail-dates {
   font-size: 15px;
-  color: var(--muted);
+  font-family: var(--font-mono);
+  color: var(--ochre);
   letter-spacing: 0.08em;
   margin: 0 0 24px;
 }
@@ -714,6 +824,7 @@ footer strong {
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  font-family: var(--font-mono);
   color: var(--muted);
   font-weight: 400;
 }
@@ -727,32 +838,124 @@ footer strong {
 .detail-bio {
   font-size: 18px;
   line-height: 1.75;
-  color: #4a4540;
+  color: var(--body);
   font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-body); /* the display font has no italic; Hanken Grotesk does */
   margin: 0;
+}
+
+/* Not found page */
+.not-found-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--header-clearance) 24px 120px;
+  text-align: center;
+}
+
+.not-found-page h1 {
+  font-size: clamp(36px, 6vw, 56px);
+  margin-bottom: 16px;
+}
+
+.not-found-page p {
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+/* Family links on a person's page */
+.family-groups {
+  display: grid;
+  gap: 20px;
+}
+
+.family-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.family-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.family-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px 4px 4px;
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.family-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.family-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.family-link-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  overflow: hidden;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--ochre);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.family-link-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 800px) {
+  .family-group {
+    align-items: center;
+  }
+
+  .family-links {
+    justify-content: center;
+  }
 }
 
 /* Parents Page */
 .parents-page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 24px 120px;
+  padding: var(--header-clearance) 24px 120px;
 }
 
 .page-header-row {
   cursor: pointer;
   margin-bottom: 60px;
   padding: 32px;
-  background: var(--card-bg);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 4px;
-  transition: all 0.3s ease;
+  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .page-header-row:hover,
 .page-header-row:focus-visible {
-  border-color: var(--gold);
+  border-color: var(--ochre);
   box-shadow: var(--shadow);
   outline: none;
 }
@@ -777,16 +980,16 @@ footer strong {
 }
 
 .parent-detail-card {
-  background: var(--card-bg);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 4px;
   padding: 32px;
   animation: slideUp 0.4s ease;
-  transition: all 0.3s ease;
+  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .parent-detail-card:hover {
-  border-color: var(--gold-light);
+  border-color: var(--line-strong);
   box-shadow: var(--shadow);
 }
 
@@ -802,12 +1005,12 @@ footer strong {
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid var(--gold-light);
+  border: 2px solid var(--line-strong);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--cream);
+  background: var(--paper);
 }
 
 .parent-detail-photo img {
@@ -818,15 +1021,15 @@ footer strong {
 }
 
 .parent-detail-photo .initials {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: 28px;
   font-weight: 400;
-  color: var(--gold);
+  color: var(--ochre);
   line-height: 1;
 }
 
 .parent-detail-info h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 400;
   margin: 0 0 4px;
@@ -849,6 +1052,7 @@ footer strong {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  font-family: var(--font-mono);
   color: var(--muted);
   font-weight: 400;
 }
@@ -862,29 +1066,31 @@ footer strong {
 .parent-detail-bio {
   font-size: 15px;
   line-height: 1.7;
-  color: #4a4540;
+  color: var(--body);
   font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-body); /* the display font has no italic; Hanken Grotesk does */
   margin: 20px 0;
 }
 
 .detail-button {
-  background: var(--gold);
-  color: var(--cream);
+  display: inline-block;
+  text-decoration: none;
+  background: var(--accent);
+  color: #fff;
   border: none;
   padding: 10px 20px;
-  border-radius: 2px;
+  border-radius: 999px;
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background var(--dur-fast) var(--ease-out);
   font-weight: 500;
 }
 
 .detail-button:hover,
 .detail-button:focus-visible {
-  background: var(--gold-light);
+  background: var(--accent-hover);
   outline: none;
 }
 
@@ -895,7 +1101,7 @@ footer strong {
 }
 
 .children-section h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-display);
   font-size: 28px;
   font-weight: 400;
   margin-bottom: 32px;
@@ -910,21 +1116,23 @@ footer strong {
 }
 
 .generation-action {
+  text-decoration: none;
   background: none;
   border: none;
-  color: var(--gold);
+  font-family: var(--font-mono);
+  color: var(--accent);
   font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
   padding: 6px 12px;
-  transition: color 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out);
   font-weight: 500;
 }
 
 .generation-action:hover,
 .generation-action:focus-visible {
-  color: var(--ink);
+  color: var(--ochre);
   outline: none;
 }
 
@@ -977,8 +1185,12 @@ footer strong {
 }
 
 @media (max-width: 600px) {
+  :root {
+    --header-clearance: 144px;
+  }
+
   .person-detail-page {
-    padding: 24px 16px 80px;
+    padding: var(--header-clearance) 16px 80px;
   }
 
   .detail-container {
@@ -995,7 +1207,7 @@ footer strong {
   }
 
   .parents-page {
-    padding: 24px 16px 80px;
+    padding: var(--header-clearance) 16px 80px;
   }
 
   .parent-details {
